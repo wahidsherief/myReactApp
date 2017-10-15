@@ -1,30 +1,21 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import Expo from 'expo';
+import React, { Component } from 'react';
+import { StackNavigator } from 'react-navigation';
+import { Root } from './app/Config/Routes';
 import Login from './app/components/Login/Login';
-import Dashboard from './app/components/Dashboard/Dashboard';
-import {StackNavigator} from 'react-navigation';
 
 const Application = StackNavigator({
         Home: { screen: Login },
-        Dashboard: { screen: Dashboard },
-    }, {
-        navigationOptions: {
-            header: true
-        }
+        Root: { screen: Root }
+    },{
+    navigationOptions: 
+    {
+        header: true
+    }
 });
 
-export default class App extends React.Component {
+export default class App extends Component {
   render() {
-    return (
-        <Application />
-    );
+    return <Application />;
   }
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});

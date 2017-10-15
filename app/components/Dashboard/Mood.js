@@ -14,19 +14,19 @@ export default class Mood extends React.Component {
 
 	render() {
 		return (
-			<View>
-				<View style={styles.moodsContainer}>
+			<View style={styles.moodsContainer}>
+				<View style={styles.moods}>
 					<ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
 						<TouchableOpacity onPress={this.onMoodPress.bind(this, 'mood1', 'exp1')} style={styles.mood1}>
-							<Image style={styles.emo} source={require('../../images/emoticons/smile.png')}/>
+							<Image style={styles.emo} source={require('../../images/emoticons/happy.png')}/>
 							<Text style={styles.emoText}>Funny</Text>
 						</TouchableOpacity>
 						<TouchableOpacity onPress={this.onMoodPress.bind(this, 'mood2', 'exp2')} style={styles.mood1}>
-							<Image style={styles.emo} source={require('../../images/emoticons/happy.png')}/>
+							<Image style={styles.emo} source={require('../../images/emoticons/loved.png')}/>
 							<Text style={styles.emoText}>Happy</Text>
 						</TouchableOpacity>
 						<TouchableOpacity onPress={this.onMoodPress.bind(this, 'mood3', 'exp3')} style={styles.mood3}>
-							<Image style={styles.emo} source={require('../../images/emoticons/love.png')}/>
+							<Image style={styles.emo} source={require('../../images/emoticons/sad.png')}/>
 							<Text style={styles.emoText}>Loved</Text>
 						</TouchableOpacity>
 						<TouchableOpacity onPress={this.onMoodPress.bind(this, 'mood4', 'exp4')} style={styles.mood4}>
@@ -34,18 +34,13 @@ export default class Mood extends React.Component {
 							<Text style={styles.emoText}>Shocked</Text>
 						</TouchableOpacity>
 						<TouchableOpacity onPress={this.onMoodPress.bind(this, 'mood5', 'exp5')} style={styles.mood5}>
-							<Image style={styles.emo} source={require('../../images/emoticons/sad.png')}/>
+							<Image style={styles.emo} source={require('../../images/emoticons/confident.png')}/>
 							<Text style={styles.emoText}>Sad</Text>
-						</TouchableOpacity>
-						<TouchableOpacity onPress={this.onMoodPress.bind(this, 'mood6', 'exp6')} style={styles.mood6}>
-							<Image style={styles.emo} source={require('../../images/emoticons/thinking.png')}/>
-							<Text style={styles.emoText}>Thoughtfull</Text>
 						</TouchableOpacity>
 					</ScrollView>
 				</View>
-
-				<View>
-					<TouchableOpacity onPress={this.onPressLearnMore} style={styles.shareButton}>
+				<View  style={styles.shareButton}>
+					<TouchableOpacity onPress={this.onPressLearnMore}>
 						<Text style={styles.buttonText}>Share Now</Text>
 					</TouchableOpacity>
 				</View>
@@ -57,8 +52,8 @@ export default class Mood extends React.Component {
 const styles = StyleSheet.create({
 
 	moodsContainer: {
-		flexDirection: "row",
-		marginBottom:0,
+		borderBottomWidth: 1,
+		borderColor: "#eee"
 	},
 
 	mood1: {
@@ -141,10 +136,7 @@ const styles = StyleSheet.create({
 
 	shareButton: {
 		height: 40,
-		marginRight: 15,
-		marginLeft: 15,
-		marginTop: 10,
-		marginBottom: -5,
+		margin: 10,
 		borderRadius: 5,
 		backgroundColor: '#999',
 	},

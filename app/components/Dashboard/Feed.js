@@ -1,138 +1,111 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Image, Text, Alert, FlatList, ActivityIndicator } from 'react-native';
-import { List, ListItem } from "react-native-elements";
+import React, { Component } from 'react';
+import { Text, View, ScrollView, StyleSheet, Image, Alert, TouchableOpacity } from 'react-native';
+import { List, ListItem } from 'react-native-elements';
+import { users } from '../../Config/data';
 
-export default class Feed extends React.Component {
+export default class Feed extends Component {
+  // onLearnMore = (user) => {
+  //   this.props.navigation.navigate('Details', { ...user });
+  // };
 
-	constructor(props) {
-		super(props);
-
-		this.state = {
-			loading: false,
-			data: [],
-			page: 1,
-			seed: 1,
-			error: null,
-			refreshing: false
-		};
-  	}
-
-	componentDidMount() {
-		this.makeRemoteRequest();
+	showAlert() {
+		alert('daad');
 	}
-
-	makeRemoteRequest = () => {
-		const { page, seed } = this.state;
-		const url = `https://randomuser.me/api/?seed=${seed}&page=${page}&results=20`;
-		this.setState({ loading: true });
-
-		fetch(url)
-		.then(res => res.json())
-		.then(res => {
-			this.setState({
-				data: page === 1 ? res.results : [...this.state.data, ...res.results],
-				error: res.error || null,
-				loading: false,
-				refreshing: false
-			});
-		})
-		.catch(error => {
-			this.setState({ error, loading: false });
-		});
-	};
-
-	handleRefresh = () => {
-		this.setState({
-	    	page: 1,
-	    	seed: this.state.seed + 1,
-	    	refreshing: true
-	  	},() => {
-	    	this.makeRemoteRequest();
-	  	});
-	};
-
-	handleLoadMore = () => {
-		this.setState({
-		    page: this.state.page + 1
-		},() => {
-		    this.makeRemoteRequest();
-		});
-	};
-
-	renderSeparator = () => {
-		return (
-	  		<View
-			    style={{
-			      height: 1,
-			      width: "86%",
-			      backgroundColor: "#CED0CE",
-			      marginLeft: "14%"
-			    }}
-	  		/>
-		);
-	};
-
-
-	renderFooter = () => {
-		if (!this.state.loading) return null;
-		return (
-		  <View
-		    style={{
-		      paddingVertical: 10,
-		      borderTopWidth: 1,
-		      borderColor: "#CED0CE"
-		    }}
-		  	>
-		    <ActivityIndicator animating size="large" />
-		  </View>
-		);
-	};
 
 	render() {
 		return (
-			<View style={styles.container}>
-				<List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
-			        <FlatList
-			        	style={styles.flatList}
-						data={this.state.data}
-						renderItem={({ item }) => (
-							<ListItem
-								roundAvatar
-								title={`${item.name.first} ${item.name.last}`}
-								subtitle={item.email}
-								avatar={{ uri: item.picture.thumbnail }}
-								containerStyle={{ borderBottomWidth: 0 }}
-							/>
-						)}
-						keyExtractor={item => item.email}
-						ItemSeparatorComponent={this.renderSeparator}
-						ListFooterComponent={this.renderFooter}
-						onRefresh={this.handleRefresh}
-						refreshing={this.state.refreshing}
-						onEndReached={this.handleLoadMore}
-						onEndReachedThreshold={50}
-			        />
-      			</List>
-
-			</View>
+			<ScrollView>
+				{users.map((user) => (
+					<TouchableOpacity style={styles.feedContainer} onPress={this.showAlert}>
+						<View style={styles.feedItem}>
+							<Image
+						    	source={require('../../images/user.jpeg')}
+						    	style={styles.userImage}
+						    />
+						    <View style={styles.userInfo}>
+								<Image
+							    	source={require('../../images/emoticons/happy.png')}
+							    	style={styles.moodImage}
+							    />
+							    <View style={styles.userInfoText}>
+								    <Text style={styles.title}>Wahidul Alam</Text>
+								    <Text style={styles.feeling}>Feeling 
+								    	<Text style={styles.mood}> Happy</Text>
+								    </Text>
+							    </View>
+							    <View style={styles.postTime}>
+									<Text style={styles.time}>2min</Text>
+							    </View>
+						    </View>
+					    </View>
+					</TouchableOpacity>
+				))}
+			</ScrollView>
 		);
 	}
 }
 
 const styles = StyleSheet.create({
-	container: {
+	feedContainer: {
 		flex: 1
 	},
 
-	feedContainer: {
-		flexDirection: 'row',
-		paddingRight: 15,
-		paddingLeft: 15,
-		paddingBottom: 10
+	feedItem: {
+		flexDirection: "row",
+		marginRight: 0,
+		marginLeft: 15,
+		marginTop: 2,
+		marginBottom: 2
 	},
 
-	flatList: {
-		backgroundColor: "#fff"
+	userImage: {
+		width: 40,
+		height: 40,
+		marginTop: 7,
+		borderRadius: 50
+	},
+
+	moodImage: {
+		width: 25,
+		height: 25,
+		marginTop: 5
+	},
+
+	userInfo: {
+		flex: 1,
+		marginLeft: 15,
+		borderBottomWidth: 1,
+		borderColor: '#eee',
+		flexDirection: "row",
+		padding: 10,
+		paddingLeft: 0
+	},
+
+	userInfoText: {
+		flex: 1,
+		marginLeft: 10,
+		flexDirection: "column"
+	},
+
+	title: {
+		fontWeight: '700',
+		color: "#333"
+	},
+
+	feeling: {
+		color: "#999"
+	},
+
+	mood: {
+		color: "green"
+	},
+
+	postTime: {
+		marginTop: 5,
+		textAlign: "right"
+	},
+
+	time: {
+		color: "#ccc"
 	}
 });

@@ -1,13 +1,13 @@
 import React from 'react';
 import { StyleSheet, View, TextInput, TouchableOpacity, Text, Alert } from 'react-native';
-import Dashboard from '../Dashboard/Dashboard';
+import Root from '../../Config/Routes';
 
 export default class LoginForm extends React.Component {
 
 	
 	onButtonPress = () => {
 		const { navigate } = this.props.navigation;
-		navigate('Dashboard');
+		navigate('Root');
 	}
 
 	render() {

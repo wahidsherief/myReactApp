@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import Mood from './Mood';
 import Feed from './Feed';
-import Navigation from './Navigation';
+// import Navigation from '../Navigation/Navigation';
 
 
 export default class Dashboard extends React.Component {
@@ -12,7 +12,6 @@ export default class Dashboard extends React.Component {
 				<Text style={styles.headerText}>Your Mood</Text>
 				<Mood />
 				<Feed />
-      			<Navigation />
 		  	</View>
 		);
 	}
